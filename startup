@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# ENV
+export DOMAIN
+DOMAIN="$(hostname)"
+
+if [ -z "$DBPASS" ]; then
+  echo "Mariadb database password must be set !"
+  exit 1
+fi
+
+# Create user and set permission
+addgroup -g ${GID} postfixadmin && adduser -h /postfixadmin -s /bin/sh -D -G postfixadmin -u ${UID} postfixadmin
+
+# Local postfixadmin configuration file
+cat > /postfixadmin/config.local.php <<EOF
+<?php
+
+\$CONF['configured'] = true;
+
+\$CONF['database_type'] = 'mysqli';
+\$CONF['database_host'] = '${DBHOST}';
+\$CONF['database_user'] = '${DBUSER}';
+\$CONF['database_password'] = '${DBPASS}';
+\$CONF['database_name'] = '${DBNAME}';
+
+\$CONF['encrypt'] = 'dovecot:SHA512-CRYPT';
+\$CONF['dovecotpw'] = "/usr/bin/doveadm pw";
+
+\$CONF['domain_path'] = 'YES';
+\$CONF['domain_in_mailbox'] = 'NO';
+\$CONF['fetchmail'] = 'NO';
+
+\$CONF['admin_email'] = 'admin@${DOMAIN}';
+\$CONF['footer_text'] = 'Return to ${DOMAIN}';
+\$CONF['footer_link'] = 'http://${DOMAIN}';
+\$CONF['default_aliases'] = array (
+  'abuse'      => 'abuse@${DOMAIN}',
+  'hostmaster' => 'hostmaster@${DOMAIN}',
+  'postmaster' => 'postmaster@${DOMAIN}',
+  'webmaster'  => 'webmaster@${DOMAIN}'
+);
+
+?>
+EOF
+
+# Set permissions
+chown -R postfixadmin:postfixadmin /postfixadmin /var/run/php-fpm.sock /var/lib/nginx /tmp
+
+# RUN !
+supervisord -c /etc/supervisor/supervisord.conf
