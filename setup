@@ -1,0 +1,4 @@
+#!/bin/sh
+
+read -rp "Postfixadmin setup hash : " HASH
+sed -i "s|\($CONF\['setup_password'\].*=\).*|\1 '${HASH}';|" /postfixadmin/config.local.php

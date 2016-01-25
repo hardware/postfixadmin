@@ -18,7 +18,6 @@ docker run -d \
   -e DBUSER=postfix \
   -e DBNAME=postfix \
   -e DBPASS=xxxxxxx \
-  -v /docker/postfixadmin:/postfixadmin \
   -h mail.domain.tld \
   hardware/postfixadmin
 ```
@@ -58,8 +57,6 @@ postfixadmin:
     - DBUSER=postfix
     - DBNAME=postfix
     - DBPASS=xxxxxxx
-  volumes:
-    - /docker/postfixadmin:/postfixadmin
 
 mariadb:
   image: mariadb:10.1

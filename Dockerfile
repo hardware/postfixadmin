@@ -13,11 +13,11 @@ RUN wget http://downloads.sourceforge.net/project/postfixadmin/postfixadmin/post
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY php-fpm.conf /etc/php/php-fpm.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY setup /usr/local/bin/setup
 COPY startup /usr/local/bin/startup
 
-RUN chmod +x /usr/local/bin/startup
+RUN chmod +x /usr/local/bin/startup /usr/local/bin/setup
 
-VOLUME /postfixadmin
 EXPOSE 80
 
 CMD ["/usr/local/bin/startup"]
