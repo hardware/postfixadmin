@@ -8,7 +8,7 @@ RUN apk -U add nginx php-fpm php-imap php-mysql php-mysqli dovecot supervisor \
 
 RUN wget http://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-$VERSION/postfixadmin-$VERSION.tar.gz -P /tmp \
   && mkdir /postfixadmin && tar -xzf /tmp/postfixadmin-$VERSION.tar.gz -C /postfixadmin && mv /postfixadmin/postfixadmin-$VERSION/* /postfixadmin \
-  && rm -rf /tmp/* /postfixadmin/postfixadmin-$VERSION.tar.gz
+  && rm -rf /tmp/* /postfixadmin/postfixadmin-$VERSION*
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY php-fpm.conf /etc/php/php-fpm.conf

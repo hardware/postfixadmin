@@ -2,7 +2,7 @@
 
 # ENV
 export DOMAIN
-DOMAIN="$(hostname)"
+DOMAIN="$(hostname --domain)"
 
 if [ -z "$DBPASS" ]; then
   echo "Mariadb database password must be set !"

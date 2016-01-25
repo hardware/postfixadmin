@@ -19,9 +19,17 @@ docker run -d \
   -e DBNAME=postfix \
   -e DBPASS=xxxxxxx \
   -v /docker/postfixadmin:/postfixadmin \
-  -h domain.tld \
+  -h mail.domain.tld \
   hardware/postfixadmin
 ```
+
+Setup :
+
+```
+http://ip/setup.php
+```
+
+Then put the setup password in **/docker/postfixadmin/config.local.php**
 
 ### Environment variables
 
@@ -40,6 +48,7 @@ docker run -d \
 postfixadmin:
   image: hardware/postfixadmin
   domainname: domain.tld
+  hostname: mail
   links:
     - mariadb:mariadb
   ports:
