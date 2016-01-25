@@ -13,6 +13,7 @@ Postfix Admin is a web based interface used to manage mailboxes, virtual domains
 
 ```
 docker run -d \
+  --name postfixadmin
   -p 80:80 \
   -e DBHOST=mysql \
   -e DBUSER=postfix \
@@ -28,7 +29,14 @@ Setup :
 http://ip/setup.php
 ```
 
-Then put the setup password in **/docker/postfixadmin/config.local.php**
+Then set the setup password with :
+
+```
+docker exec -ti postfixadmin sh /usr/local/bin/setup
+
+> Postfixadmin setup hash : ffdeb741c58db70d060ddb170af4623a:54e0ac9a55d69c5e53d214c7ad7f1e3df40a3caa
+Setup done.
+```
 
 ### Environment variables
 
@@ -46,6 +54,7 @@ Then put the setup password in **/docker/postfixadmin/config.local.php**
 ```
 postfixadmin:
   image: hardware/postfixadmin
+  container_name: postfixadmin
   domainname: domain.tld
   hostname: mail
   links:

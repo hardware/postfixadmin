@@ -1,4 +1,21 @@
 #!/bin/sh
 
-read -rp "Postfixadmin setup hash : " HASH
-sed -i "s|\($CONF\['setup_password'\].*=\).*|\1 '${HASH}';|" /postfixadmin/config.local.php
+CSI="\033["
+CEND="${CSI}0m"
+CRED="${CSI}1;31m"
+CGREEN="${CSI}1;32m"
+
+read -rp "> Postfixadmin setup hash : " HASH
+
+# MD5(salt) : SHA1( MD5(salt) : PASSWORD );
+#    32     1              40
+# Exemple : ffdeb741c58db80d060ddb170af4623a:54e0ac9a55d69c5e53d214c7ad7f1e3df40a3caa
+while [ ${#HASH} -ne 73 ]; do
+  echo -e "${CRED}\n/!\ Invalid HASH !${CEND}" 1>&2
+  read -rp "> Postfixadmin setup hash : " HASH
+  echo ""
+done
+
+sed -i "s|\($CONF\['setup_password'\].*=\).*|\1 '${HASH}';|" /postfixadmin/config.inc.php
+
+echo -e "${CGREEN}Setup done.${CEND}"
