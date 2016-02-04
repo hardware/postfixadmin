@@ -69,8 +69,6 @@ postfixadmin:
 
 mariadb:
   image: mariadb:10.1
-  ports:
-    - "3306:3306"
   volumes:
     - /docker/mysql/db:/var/lib/mysql
   environment:
