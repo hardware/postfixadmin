@@ -61,7 +61,7 @@ mariadb:
   image: mariadb:10.1
   container_name: mariadb
   volumes:
-    - /docker/mysql/db:/var/lib/mysql
+    - /mnt/docker/mysql/db:/var/lib/mysql
   environment:
     - MYSQL_ROOT_PASSWORD=xxxx
     - MYSQL_DATABASE=postfix
