@@ -13,7 +13,7 @@ Postfix Admin is a web based interface used to manage mailboxes, virtual domains
 
 ```
 docker run -d \
-  --name postfixadmin
+  --name postfixadmin \
   -e DBHOST=mysql \
   -e DBUSER=postfix \
   -e DBNAME=postfix \
