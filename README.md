@@ -14,7 +14,6 @@ Postfix Admin is a web based interface used to manage mailboxes, virtual domains
 ```
 docker run -d \
   --name postfixadmin
-  -p 80:80 \
   -e DBHOST=mysql \
   -e DBUSER=postfix \
   -e DBNAME=postfix \
@@ -23,20 +22,13 @@ docker run -d \
   hardware/postfixadmin
 ```
 
-Setup :
+### Reverse proxy example with nginx
 
-```
-http://ip/setup.php
-```
+https://github.com/hardware/mailserver/wiki/Reverse-proxy-configuration
 
-Then set the setup password with :
+### Initial configuration
 
-```
-docker exec -ti postfixadmin sh /usr/local/bin/setup
-
-> Postfixadmin setup hash : ffdeb741c58db70d060ddb170af4623a:54e0ac9a55d69c5e53d214c7ad7f1e3df40a3caa
-Setup done.
-```
+https://github.com/hardware/mailserver/wiki/Postfixadmin-initial-configuration
 
 ### Environment variables
 
@@ -59,8 +51,6 @@ postfixadmin:
   hostname: mail
   links:
     - mariadb:mariadb
-  ports:
-    - "80:80"
   environment:
     - DBHOST=mariadb
     - DBUSER=postfix
@@ -69,6 +59,7 @@ postfixadmin:
 
 mariadb:
   image: mariadb:10.1
+  container_name: mariadb
   volumes:
     - /docker/mysql/db:/var/lib/mysql
   environment:
