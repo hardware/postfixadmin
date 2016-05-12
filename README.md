@@ -30,6 +30,11 @@ https://github.com/hardware/mailserver/wiki/Reverse-proxy-configuration
 
 https://github.com/hardware/mailserver/wiki/Postfixadmin-initial-configuration
 
+### Built-time variables
+
+- **VERSION** : version of postfixadmin
+- **GPG_Goodwin** : fingerprint of signing key
+
 ### Environment variables
 
 - **GID** = postfixadmin user id (*optional*, default: 991)
