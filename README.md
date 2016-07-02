@@ -19,6 +19,7 @@ docker run -d \
   -e DBNAME=postfix \
   -e DBPASS=xxxxxxx \
   -h mail.domain.tld \
+  --link mailserver:mailserver \
   hardware/postfixadmin
 ```
 
@@ -56,6 +57,7 @@ postfixadmin:
   hostname: mail
   links:
     - mariadb:mariadb
+    - mailserver:mailserver
   environment:
     - DBHOST=mariadb
     - DBUSER=postfix
