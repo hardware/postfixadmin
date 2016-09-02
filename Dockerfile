@@ -12,18 +12,17 @@ ENV GID=991 \
     DBNAME=postfix
 
 RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
- && echo "@testing https://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
  && BUILD_DEPS=" \
     ca-certificates \
     gnupg" \
  && apk -U add \
     ${BUILD_DEPS} \
     nginx \
-    php7-fpm@testing \
-    php7-imap@testing \
-    php7-mysqli@testing \
-    php7-session@testing \
-    php7-mbstring@testing \
+    php7-fpm@commuedge \
+    php7-imap@commuedge \
+    php7-mysqli@commuedge \
+    php7-session@commuedge \
+    php7-mbstring@commuedge \
     dovecot \
     supervisor \
     tini@commuedge \
