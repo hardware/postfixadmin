@@ -2,7 +2,8 @@
 
 # ENV
 export DOMAIN
-DOMAIN="$(hostname --domain)"
+
+DOMAIN=${DOMAIN:-$(hostname --domain)}
 
 if [ -z "$DBPASS" ]; then
   echo "Mariadb database password must be set !"
@@ -27,7 +28,7 @@ cat > /postfixadmin/config.local.php <<EOF
 \$CONF['encrypt'] = 'dovecot:SHA512-CRYPT';
 \$CONF['dovecotpw'] = "/usr/bin/doveadm pw";
 
-\$CONF['smtp_server'] = 'mailserver';
+\$CONF['smtp_server'] = '${SMTPHOST}';
 \$CONF['domain_path'] = 'YES';
 \$CONF['domain_in_mailbox'] = 'NO';
 \$CONF['fetchmail'] = 'NO';

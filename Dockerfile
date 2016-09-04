@@ -9,7 +9,8 @@ ENV GID=991 \
     UID=991 \
     DBHOST=mariadb \
     DBUSER=postfix \
-    DBNAME=postfix
+    DBNAME=postfix \
+    SMTPHOST=mailserver
 
 RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
  && BUILD_DEPS=" \
