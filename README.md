@@ -44,6 +44,8 @@ https://github.com/hardware/mailserver/wiki/Postfixadmin-initial-configuration
 - **DBUSER** = MYSQL database username (*optional*, default: postfix)
 - **DBNAME** = MYSQL database name (*optional*, default: postfix)
 - **DBPASS** = MYSQL database (**required**)
+- **SMTPHOST** = SMTP host (*optional*, default: mailserver)
+- **DOMAIN** = Mail domain (*optional*, default: domainname of container)
 
 ### Docker-compose
 
