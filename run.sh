@@ -10,8 +10,8 @@ if [ -z "$DBPASS" ]; then
   exit 1
 fi
 
-# Create user and set permission
-addgroup -g ${GID} postfixadmin && adduser -h /postfixadmin -s /bin/sh -D -G postfixadmin -u ${UID} postfixadmin
+# Set permissions
+chown -R $UID:$GID /postfixadmin /etc/nginx /etc/php7 /var/log /var/lib/nginx /tmp /etc/s6.d
 
 # Local postfixadmin configuration file
 cat > /postfixadmin/config.local.php <<EOF
@@ -46,8 +46,5 @@ cat > /postfixadmin/config.local.php <<EOF
 ?>
 EOF
 
-# Set permissions
-chown -R postfixadmin:postfixadmin /postfixadmin /var/run/php-fpm.sock /var/lib/nginx /tmp
-
 # RUN !
-supervisord -c /etc/supervisor/supervisord.conf
+exec su-exec $UID:$GID /bin/s6-svscan /etc/s6.d
