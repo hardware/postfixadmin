@@ -38,8 +38,8 @@ RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/a
  && gpg --keyserver keys.gnupg.net --recv-keys ${GPG_SHORTID} \
  && FINGERPRINT="$(LANG=C gpg --verify ${PFA_TARBALL}.asc ${PFA_TARBALL} 2>&1 \
   | sed -n "s#Primary key fingerprint: \(.*\)#\1#p")" \
- && if [ -z "${FINGERPRINT}" ]; then echo "Warning! Invalid GPG signature!"; fi \
- && if [ "${FINGERPRINT}" != "${GPG_FINGERPRINT}" ]; then echo "Warning! Wrong GPG fingerprint!"; fi \
+ && if [ -z "${FINGERPRINT}" ]; then echo "Warning! Invalid GPG signature!" && exit 1; fi \
+ && if [ "${FINGERPRINT}" != "${GPG_FINGERPRINT}" ]; then echo "Warning! Wrong GPG fingerprint!" && exit 1; fi \
  && echo "All seems good, now unpacking ${PFA_TARBALL}..." \
  && mkdir /postfixadmin && tar xzf ${PFA_TARBALL} -C /postfixadmin && mv /postfixadmin/postfixadmin-$VERSION/* /postfixadmin \
  && apk del ${BUILD_DEPS} \

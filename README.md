@@ -2,26 +2,40 @@
 
 ![postfixadmin](http://i.imgur.com/UCtvKHR.png "postfixadmin")
 
-Postfix Admin is a web based interface used to manage mailboxes, virtual domains and aliases. It also features support for vacation/out-of-the-office messages.
+### What is this ?
 
-### Requirement
+PostfixAdmin is a web based interface used to manage mailboxes, virtual domains and aliases. It also features support for vacation/out-of-the-office messages.
 
-- Docker 1.0 or higher
-- MySQL
+### Features
 
-### How to use
+- Lightweight & secure image (no root process)
+- Based on Alpine Linux 3.4
+- Latest Postfixadmin version (3.0)
+- MySQL/Mariadb driver
+- With Nginx and PHP7
 
-```
-docker run -d \
-  --name postfixadmin \
-  -e DBHOST=mysql \
-  -e DBUSER=postfix \
-  -e DBNAME=postfix \
-  -e DBPASS=xxxxxxx \
-  -h mail.domain.tld \
-  --link mailserver:mailserver \
-  hardware/postfixadmin
-```
+### Built-time variables
+
+- **VERSION** : version of postfixadmin (default: **3.0**)
+- **GPG_SHORTID** : short gpg key ID
+- **GPG_FINGERPRINT** : fingerprint of signing key
+
+### Ports
+
+- **8888**
+
+### Environment variables
+
+| Variable | Description | Type | Default value |
+| -------- | ----------- | ---- | ------------- |
+| **GID** | postfixadmin user id | *optional* | 991
+| **UID** | postfixadmin group id | *optional* | 991
+| **DBHOST** | postfixadmin group id | *optional* | mariadb
+| **DBUSER** | postfixadmin group id | *optional* | postfix
+| **DBNAME** | postfixadmin group id | *optional* | postfix
+| **DBPASS** | postfixadmin group id | **required** | null
+| **SMTPHOST** | SMTP host | *optional* | mailserver
+| **DOMAIN** | Mail domain | *optional* | domainname of the container
 
 ### Reverse proxy example with nginx
 
@@ -30,22 +44,6 @@ https://github.com/hardware/mailserver/wiki/Reverse-proxy-configuration
 ### Initial configuration
 
 https://github.com/hardware/mailserver/wiki/Postfixadmin-initial-configuration
-
-### Built-time variables
-
-- **VERSION** : version of postfixadmin
-- **GPG_Goodwin** : fingerprint of signing key
-
-### Environment variables
-
-- **GID** = postfixadmin user id (*optional*, default: 991)
-- **UID** = postfixadmin group id (*optional*, default: 991)
-- **DBHOST** = MySQL instance ip/hostname (*optional*, default: mariadb)
-- **DBUSER** = MYSQL database username (*optional*, default: postfix)
-- **DBNAME** = MYSQL database name (*optional*, default: postfix)
-- **DBPASS** = MYSQL database (**required**)
-- **SMTPHOST** = SMTP host (*optional*, default: mailserver)
-- **DOMAIN** = Mail domain (*optional*, default: domainname of container)
 
 ### Docker-compose
 
@@ -59,7 +57,6 @@ postfixadmin:
   hostname: mail
   links:
     - mariadb:mariadb
-    - mailserver:mailserver
   environment:
     - DBHOST=mariadb
     - DBUSER=postfix
