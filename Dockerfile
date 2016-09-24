@@ -51,7 +51,7 @@ COPY setup /usr/local/bin/setup
 COPY s6.d /etc/s6.d
 COPY run.sh /usr/local/bin/run.sh
 
-RUN chmod +x /usr/local/bin/* /etc/s6.d/*/*
+RUN chmod +x /usr/local/bin/* /etc/s6.d/*/* /etc/s6.d/.s6-svscan/*
 
 EXPOSE 8888
 
