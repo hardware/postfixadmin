@@ -32,6 +32,7 @@ cat > /postfixadmin/config.local.php <<EOF
 \$CONF['domain_path'] = 'YES';
 \$CONF['domain_in_mailbox'] = 'NO';
 \$CONF['fetchmail'] = 'NO';
+\$CONF['sendmail'] = 'NO';
 
 \$CONF['admin_email'] = 'admin@${DOMAIN}';
 \$CONF['footer_text'] = 'Return to ${DOMAIN}';
@@ -43,6 +44,16 @@ cat > /postfixadmin/config.local.php <<EOF
   'webmaster'  => 'webmaster@${DOMAIN}'
 );
 
+\$CONF['quota'] = 'YES';
+\$CONF['domain_quota'] = 'YES';
+\$CONF['quota_multiplier'] = '1024000';
+\$CONF['used_quotas'] = 'YES';
+\$CONF['new_quota_table'] = 'YES';
+
+\$CONF['aliases'] = '0';
+\$CONF['mailboxes'] = '0';
+\$CONF['maxquota'] = '0';
+\$CONF['domain_quota_default'] = '0';
 ?>
 EOF
 
