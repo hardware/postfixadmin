@@ -31,7 +31,7 @@ cat > /postfixadmin/config.local.php <<EOF
 \$CONF['smtp_server'] = '${SMTPHOST}';
 \$CONF['domain_path'] = 'YES';
 \$CONF['domain_in_mailbox'] = 'NO';
-\$CONF['fetchmail'] = 'NO';
+\$CONF['fetchmail'] = 'YES';
 \$CONF['sendmail'] = 'NO';
 
 \$CONF['admin_email'] = 'admin@${DOMAIN}';
