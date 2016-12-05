@@ -9,7 +9,7 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 ### Features
 
 - Lightweight & secure image (no root process)
-- Based on Alpine Linux 3.4
+- Based on Alpine Linux
 - Latest Postfixadmin version (3.0)
 - MySQL/Mariadb driver
 - With Nginx and PHP7
@@ -28,13 +28,13 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 
 | Variable | Description | Type | Default value |
 | -------- | ----------- | ---- | ------------- |
-| **GID** | postfixadmin user id | *optional* | 991
-| **UID** | postfixadmin group id | *optional* | 991
-| **DBHOST** | postfixadmin group id | *optional* | mariadb
-| **DBUSER** | postfixadmin group id | *optional* | postfix
-| **DBNAME** | postfixadmin group id | *optional* | postfix
-| **DBPASS** | postfixadmin group id | **required** | null
-| **SMTPHOST** | SMTP host | *optional* | mailserver
+| **UID** | postfixadmin user id | *optional* | 991
+| **GID** | postfixadmin group id | *optional* | 991
+| **DBHOST** | MariaDB instance ip/hostname | *optional* | mariadb
+| **DBUSER** | MariaDB database username | *optional* | postfix
+| **DBNAME** | MariaDB database name | *optional* | postfix
+| **DBPASS** | MariaDB database password | **required** | null
+| **SMTPHOST** | SMTP server ip/hostname | *optional* | mailserver
 | **DOMAIN** | Mail domain | *optional* | domainname of the container
 
 ### Reverse proxy example with nginx
