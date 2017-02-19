@@ -1,12 +1,12 @@
-FROM alpine:3.4
+FROM alpine:3.5
 MAINTAINER Hardware <contact@meshup.net>
 
-ARG VERSION=3.0
+ARG VERSION=3.0.2
 
-# https://pgp.mit.edu/pks/lookup?search=0x63C82F1C&fingerprint=on&op=index
-# pub  4096R/63C82F1C 2005-10-06 Christian Boltz (www.cboltz.de) <gpg@cboltz.de>
-ARG GPG_SHORTID="0x63C82F1C"
-ARG GPG_FINGERPRINT="70CA A060 DE04 2AAE B1B1  5196 C6A6 82EA 63C8 2F1C"
+# https://pgp.mit.edu/pks/lookup?search=0xEB7EB945&fingerprint=on&op=index
+# pub  4096R/EB7EB945 2012-01-25 David Goodwin (PalePurple) <david@palepurple.co.uk>
+ARG GPG_SHORTID="0xEB7EB945"
+ARG GPG_FINGERPRINT="2D83 3163 D69B B8F6 BFEF  179D 4ECC 3566 EB7E B945"
 
 ENV GID=991 \
     UID=991 \
@@ -15,7 +15,7 @@ ENV GID=991 \
     DBNAME=postfix \
     SMTPHOST=mailserver
 
-RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+RUN echo "@testing https://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
  && BUILD_DEPS=" \
     ca-certificates \
     gnupg" \
@@ -25,11 +25,11 @@ RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/a
     s6 \
     su-exec \
     dovecot \
-    php7-fpm@commuedge \
-    php7-imap@commuedge \
-    php7-mysqli@commuedge \
-    php7-session@commuedge \
-    php7-mbstring@commuedge \
+    php7.1-fpm@testing \
+    php7.1-imap@testing \
+    php7.1-mysqli@testing \
+    php7.1-session@testing \
+    php7.1-mbstring@testing \
  && cd /tmp \
  && PFA_TARBALL="postfixadmin-${VERSION}.tar.gz" \
  && wget -q https://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-${VERSION}/${PFA_TARBALL} \
@@ -46,7 +46,7 @@ RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/a
  && rm -rf /var/cache/apk/* /tmp/* /root/.gnupg /postfixadmin/postfixadmin-$VERSION*
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY php-fpm.conf /etc/php7/php-fpm.conf
+COPY php-fpm.conf /etc/php7.1/php-fpm.conf
 COPY setup /usr/local/bin/setup
 COPY s6.d /etc/s6.d
 COPY run.sh /usr/local/bin/run.sh
