@@ -15,7 +15,7 @@ ENV GID=991 \
     DBNAME=postfix \
     SMTPHOST=mailserver
 
-RUN echo "@testing https://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
  && BUILD_DEPS=" \
     ca-certificates \
     gnupg" \
@@ -25,11 +25,11 @@ RUN echo "@testing https://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/r
     s6 \
     su-exec \
     dovecot \
-    php7.1-fpm@testing \
-    php7.1-imap@testing \
-    php7.1-mysqli@testing \
-    php7.1-session@testing \
-    php7.1-mbstring@testing \
+    php7-fpm@commuedge \
+    php7-imap@commuedge \
+    php7-mysqli@commuedge \
+    php7-session@commuedge \
+    php7-mbstring@commuedge \
  && cd /tmp \
  && PFA_TARBALL="postfixadmin-${VERSION}.tar.gz" \
  && wget -q https://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-${VERSION}/${PFA_TARBALL} \
@@ -46,7 +46,7 @@ RUN echo "@testing https://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/r
  && rm -rf /var/cache/apk/* /tmp/* /root/.gnupg /postfixadmin/postfixadmin-$VERSION*
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY php-fpm.conf /etc/php7.1/php-fpm.conf
+COPY php-fpm.conf /etc/php7/php-fpm.conf
 COPY setup /usr/local/bin/setup
 COPY s6.d /etc/s6.d
 COPY run.sh /usr/local/bin/run.sh

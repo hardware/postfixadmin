@@ -11,7 +11,7 @@ if [ -z "$DBPASS" ]; then
 fi
 
 # Set permissions
-chown -R $UID:$GID /postfixadmin /etc/nginx /etc/php7.1 /var/log /var/lib/nginx /tmp /etc/s6.d
+chown -R $UID:$GID /postfixadmin /etc/nginx /etc/php7 /var/log /var/lib/nginx /tmp /etc/s6.d
 
 # Local postfixadmin configuration file
 cat > /postfixadmin/config.local.php <<EOF
