@@ -1,5 +1,7 @@
 FROM alpine:3.5
-MAINTAINER Hardware <contact@meshup.net>
+
+LABEL description "PostfixAdmin is a web based interface used to manage mailboxes" \
+      maintainer="Hardware <contact@meshup.net>"
 
 ARG VERSION=3.0.2
 
@@ -15,7 +17,7 @@ ENV GID=991 \
     DBNAME=postfix \
     SMTPHOST=mailserver
 
-RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+RUN echo "@community https://nl.alpinelinux.org/alpine/v3.5/community" >> /etc/apk/repositories \
  && BUILD_DEPS=" \
     ca-certificates \
     gnupg" \
@@ -25,11 +27,11 @@ RUN echo "@commuedge https://nl.alpinelinux.org/alpine/edge/community" >> /etc/a
     s6 \
     su-exec \
     dovecot \
-    php7-fpm@commuedge \
-    php7-imap@commuedge \
-    php7-mysqli@commuedge \
-    php7-session@commuedge \
-    php7-mbstring@commuedge \
+    php7-fpm@community \
+    php7-imap@community \
+    php7-mysqli@community \
+    php7-session@community \
+    php7-mbstring@community \
  && cd /tmp \
  && PFA_TARBALL="postfixadmin-${VERSION}.tar.gz" \
  && wget -q https://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-${VERSION}/${PFA_TARBALL} \

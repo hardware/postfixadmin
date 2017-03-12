@@ -10,13 +10,13 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
-- Latest Postfixadmin version (3.0)
+- Latest Postfixadmin version (3.0.2)
 - MySQL/Mariadb driver
 - With Nginx and PHP7
 
 ### Built-time variables
 
-- **VERSION** : version of postfixadmin (default: **3.0**)
+- **VERSION** : version of postfixadmin (default: **3.0.2**)
 - **GPG_SHORTID** : short gpg key ID
 - **GPG_FINGERPRINT** : fingerprint of signing key
 
