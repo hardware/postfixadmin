@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 LABEL description "PostfixAdmin is a web based interface used to manage mailboxes" \
       maintainer="Hardware <contact@meshup.net>"
@@ -17,12 +17,12 @@ ENV GID=991 \
     DBNAME=postfix \
     SMTPHOST=mailserver
 
-RUN echo "@community https://nl.alpinelinux.org/alpine/v3.5/community" >> /etc/apk/repositories \
- && BUILD_DEPS=" \
+RUN echo "@community https://nl.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/repositories \
+ && apk -U upgrade \
+ && apk add -t build-dependencies \
     ca-certificates \
-    gnupg" \
- && apk -U add \
-    ${BUILD_DEPS} \
+    gnupg \
+ && apk add \
     nginx \
     s6 \
     su-exec \
@@ -44,7 +44,7 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.5/community" >> /etc/a
  && if [ "${FINGERPRINT}" != "${GPG_FINGERPRINT}" ]; then echo "Warning! Wrong GPG fingerprint!" && exit 1; fi \
  && echo "All seems good, now unpacking ${PFA_TARBALL}..." \
  && mkdir /postfixadmin && tar xzf ${PFA_TARBALL} -C /postfixadmin && mv /postfixadmin/postfixadmin-$VERSION/* /postfixadmin \
- && apk del ${BUILD_DEPS} \
+ && apk del build-dependencies \
  && rm -rf /var/cache/apk/* /tmp/* /root/.gnupg /postfixadmin/postfixadmin-$VERSION*
 
 COPY nginx.conf /etc/nginx/nginx.conf
