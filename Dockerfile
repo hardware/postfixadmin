@@ -3,12 +3,13 @@ FROM alpine:3.6
 LABEL description "PostfixAdmin is a web based interface used to manage mailboxes" \
       maintainer="Hardware <contact@meshup.net>"
 
-ARG VERSION=3.0.2
+ARG VERSION=3.1
 
-# https://pgp.mit.edu/pks/lookup?search=0xEB7EB945&fingerprint=on&op=index
-# pub  4096R/EB7EB945 2012-01-25 David Goodwin (PalePurple) <david@palepurple.co.uk>
-ARG GPG_SHORTID="0xEB7EB945"
-ARG GPG_FINGERPRINT="2D83 3163 D69B B8F6 BFEF  179D 4ECC 3566 EB7E B945"
+# https://pgp.mit.edu/pks/lookup?search=0xC6A682EA63C82F1C&fingerprint=on&op=index
+# pub  4096R/63C82F1C 2005-10-06 Christian Boltz (www.cboltz.de) <gpg@cboltz.de>
+
+ARG GPG_SHORTID="0xC6A682EA63C82F1C"
+ARG GPG_FINGERPRINT="70CA A060 DE04 2AAE B1B1  5196 C6A6 82EA 63C8 2F1C"
 
 ENV GID=991 \
     UID=991 \
