@@ -10,6 +10,9 @@ if [ -z "$DBPASS" ]; then
   exit 1
 fi
 
+# Create smarty cache folder
+mkdir -p /postfixadmin/templates_c
+
 # Set permissions
 chown -R $UID:$GID /postfixadmin /etc/nginx /etc/php7 /var/log /var/lib/nginx /tmp /etc/s6.d
 
