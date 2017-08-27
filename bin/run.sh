@@ -38,9 +38,9 @@ cat > /postfixadmin/config.local.php <<EOF
 \$CONF['domain_path'] = 'YES';
 \$CONF['domain_in_mailbox'] = 'NO';
 \$CONF['fetchmail'] = 'YES';
-\$CONF['sendmail'] = 'NO';
+\$CONF['sendmail'] = 'YES';
 
-\$CONF['admin_email'] = 'admin@${DOMAIN}';
+\$CONF['admin_email'] = 'postfixadmin@${DOMAIN}';
 \$CONF['footer_text'] = 'Return to ${DOMAIN}';
 \$CONF['footer_link'] = 'http://${DOMAIN}';
 \$CONF['default_aliases'] = array (
