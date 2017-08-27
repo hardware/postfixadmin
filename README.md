@@ -35,48 +35,27 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 | **DBNAME** | MariaDB database name | *optional* | postfix
 | **DBPASS** | MariaDB database password | **required** | null
 | **SMTPHOST** | SMTP server ip/hostname | *optional* | mailserver
-| **DOMAIN** | Mail domain | *optional* | domainname of the container
+| **DOMAIN** | Mail domain | *optional* | `domainname` value
+| **ENCRYPTION** | Passwords encryption method | *optional* | `dovecot:SHA512-CRYPT`
 
-### Reverse proxy example with nginx
+### Docker-compose.yml
 
-https://github.com/hardware/mailserver/wiki/Reverse-proxy-configuration
+```yml
+# Full example :
+# https://github.com/hardware/mailserver/blob/master/docker-compose.sample.yml
 
-### Initial configuration
-
-https://github.com/hardware/mailserver/wiki/Postfixadmin-initial-configuration
-
-### Docker-compose
-
-#### Docker-compose.yml
-
-```
 postfixadmin:
   image: hardware/postfixadmin
   container_name: postfixadmin
   domainname: domain.tld
   hostname: mail
-  links:
-    - mariadb:mariadb
   environment:
-    - DBHOST=mariadb
-    - DBUSER=postfix
-    - DBNAME=postfix
     - DBPASS=xxxxxxx
-
-mariadb:
-  image: mariadb:10.1
-  container_name: mariadb
-  volumes:
-    - /mnt/docker/mysql/db:/var/lib/mysql
-  environment:
-    - MYSQL_ROOT_PASSWORD=xxxx
-    - MYSQL_DATABASE=postfix
-    - MYSQL_USER=postfix
-    - MYSQL_PASSWORD=xxxx
+  depends_on:
+    - mailserver
+    - mariadb
 ```
 
-#### Run !
+### How to setup
 
-```
-docker-compose up -d
-```
+https://github.com/hardware/mailserver/wiki/Postfixadmin-initial-configuration

@@ -1,9 +1,13 @@
 #!/bin/sh
 
-# ENV
-export DOMAIN
-
+GID=${GID:-991}
+UID=${UID:-991}
 DOMAIN=${DOMAIN:-$(hostname --domain)}
+DBHOST=${DBHOST:-mariadb}
+DBUSER=${DBUSER:-postfix}
+DBNAME=${DBNAME:-postfix}
+SMTPHOST=${SMTPHOST:-mailserver}
+ENCRYPTION=${ENCRYPTION:-"dovecot:SHA512-CRYPT"}
 
 if [ -z "$DBPASS" ]; then
   echo "Mariadb database password must be set !"
@@ -14,12 +18,11 @@ fi
 mkdir -p /postfixadmin/templates_c
 
 # Set permissions
-chown -R $UID:$GID /postfixadmin /etc/nginx /etc/php7 /var/log /var/lib/nginx /tmp /etc/s6.d
+chown -R $UID:$GID /postfixadmin
 
 # Local postfixadmin configuration file
 cat > /postfixadmin/config.local.php <<EOF
 <?php
-
 \$CONF['configured'] = true;
 
 \$CONF['database_type'] = 'mysqli';
@@ -28,7 +31,7 @@ cat > /postfixadmin/config.local.php <<EOF
 \$CONF['database_password'] = '${DBPASS}';
 \$CONF['database_name'] = '${DBNAME}';
 
-\$CONF['encrypt'] = 'dovecot:SHA512-CRYPT';
+\$CONF['encrypt'] = '${ENCRYPTION}';
 \$CONF['dovecotpw'] = "/usr/bin/doveadm pw";
 
 \$CONF['smtp_server'] = '${SMTPHOST}';
@@ -61,4 +64,4 @@ cat > /postfixadmin/config.local.php <<EOF
 EOF
 
 # RUN !
-exec su-exec $UID:$GID /bin/s6-svscan /etc/s6.d
+exec su-exec $UID:$GID php7 -S 0.0.0.0:8888 -t /postfixadmin
