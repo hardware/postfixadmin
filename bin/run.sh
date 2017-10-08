@@ -6,6 +6,7 @@ DOMAIN=${DOMAIN:-$(hostname --domain)}
 DBHOST=${DBHOST:-mariadb}
 DBUSER=${DBUSER:-postfix}
 DBNAME=${DBNAME:-postfix}
+DBPASS=$([ -f $DBPASS ] && cat $DBPASS || echo ${DBPASS:-})
 SMTPHOST=${SMTPHOST:-mailserver}
 ENCRYPTION=${ENCRYPTION:-"dovecot:SHA512-CRYPT"}
 

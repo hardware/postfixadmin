@@ -33,7 +33,7 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 | **DBHOST** | MariaDB instance ip/hostname | *optional* | mariadb
 | **DBUSER** | MariaDB database username | *optional* | postfix
 | **DBNAME** | MariaDB database name | *optional* | postfix
-| **DBPASS** | MariaDB database password | **required** | null
+| **DBPASS** | MariaDB database password or location of a file containing it | **required** | null
 | **SMTPHOST** | SMTP server ip/hostname | *optional* | mailserver
 | **DOMAIN** | Mail domain | *optional* | `domainname` value
 | **ENCRYPTION** | Passwords encryption method | *optional* | `dovecot:SHA512-CRYPT`
