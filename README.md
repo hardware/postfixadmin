@@ -37,6 +37,9 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 | **SMTPHOST** | SMTP server ip/hostname | *optional* | mailserver
 | **DOMAIN** | Mail domain | *optional* | `domainname` value
 | **ENCRYPTION** | Passwords encryption method | *optional* | `dovecot:SHA512-CRYPT`
+| **PASSVAL_MIN_LEN** | Passwords validation: minimum password length | *optional* | 5
+| **PASSVAL_MIN_CHAR** | Passwords validation: must contain at least characters | *optional* | 3
+| **PASSVAL_MIN_DIGIT** | Passwords validation: must contain at least digits | *optional* | 2
 
 ### Docker-compose.yml
 

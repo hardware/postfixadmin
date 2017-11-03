@@ -9,6 +9,10 @@ DBNAME=${DBNAME:-postfix}
 DBPASS=$([ -f "$DBPASS" ] && cat "$DBPASS" || echo "${DBPASS:-}")
 SMTPHOST=${SMTPHOST:-mailserver}
 ENCRYPTION=${ENCRYPTION:-"dovecot:SHA512-CRYPT"}
+# Password validation
+PASSVAL_MIN_LEN=${PASSVAL_MIN_LEN:-5}
+PASSVAL_MIN_CHAR=${PASSVAL_MIN_CHAR:-3}
+PASSVAL_MIN_DIGIT=${PASSVAL_MIN_DIGIT:-2}
 
 if [ -z "$DBPASS" ]; then
   echo "Mariadb database password must be set !"
@@ -61,8 +65,13 @@ cat > /postfixadmin/config.local.php <<EOF
 \$CONF['mailboxes'] = '0';
 \$CONF['maxquota'] = '0';
 \$CONF['domain_quota_default'] = '0';
+
+\$CONF['password_validation'] = array(
+    '/.{${PASSVAL_MIN_LEN}}/'                => 'password_too_short ${PASSVAL_MIN_LEN}',
+    '/([a-zA-Z].*){${PASSVAL_MIN_CHAR}}/'    => 'password_no_characters ${PASSVAL_MIN_CHAR}',
+    '/([0-9].*){${PASSVAL_MIN_DIGIT}}/'      => 'password_no_digits ${PASSVAL_MIN_DIGIT}',
+);
 ?>
 EOF
-
 # RUN !
 exec su-exec $UID:$GID php7 -S 0.0.0.0:8888 -t /postfixadmin
