@@ -29,7 +29,9 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.6/community" >> /etc/a
  && PFA_TARBALL="postfixadmin-${VERSION}.tar.gz" \
  && wget -q https://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-${VERSION}/${PFA_TARBALL} \
  && wget -q https://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-${VERSION}/${PFA_TARBALL}.asc \
- && gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys ${GPG_SHORTID} \
+ && gpg --keyserver pgp.mit.edu --recv-keys ${GPG_SHORTID} || \
+    gpg --keyserver keyserver.pgp.com --recv-keys ${GPG_SHORTID} || \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys ${GPG_SHORTID} \
  && FINGERPRINT="$(LANG=C gpg --verify ${PFA_TARBALL}.asc ${PFA_TARBALL} 2>&1 | sed -n "s#Primary key fingerprint: \(.*\)#\1#p")" \
  && if [ -z "${FINGERPRINT}" ]; then echo "Warning! Invalid GPG signature!" && exit 1; fi \
  && if [ "${FINGERPRINT}" != "${GPG_FINGERPRINT}" ]; then echo "Warning! Wrong GPG fingerprint!" && exit 1; fi \
