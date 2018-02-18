@@ -1,0 +1,11 @@
+[Unit]
+Description=postfixadmin-start
+After=postfixadmin.service
+Requires=postfixadmin.service
+
+[Service]
+Restart=always
+ExecStart=/root/docker/postfixadmin/scripts/postfixadmin-up.sh
+
+[Install]
+WantedBy=multi-user.target

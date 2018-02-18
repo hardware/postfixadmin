@@ -1,0 +1,13 @@
+postfixadmin:
+  image: naoi/postfixadmin
+  container_name: postfixadmin
+  domainname: YOUR_DOMAIN_NAME
+  hostname: postfixadmin
+  environment:
+    - DBHOST=172.17.0.1
+    - DBNAME=postfixadmin
+    - DBUSER=postfixadmin
+    - DBPASS=YOUR_PASSWORD
+    - SMTPHOST=localhost
+  ports:
+    - "8888:8888"
