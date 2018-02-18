@@ -29,6 +29,7 @@ chown -R $UID:$GID /postfixadmin
 cat > /postfixadmin/config.local.php <<EOF
 <?php
 \$CONF['configured'] = true;
+\$CONF['xmlrpc_enabled'] = true;
 
 \$CONF['database_type'] = 'mysqli';
 \$CONF['database_host'] = '${DBHOST}';
