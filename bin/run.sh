@@ -3,7 +3,9 @@
 GID=${GID:-991}
 UID=${UID:-991}
 DOMAIN=${DOMAIN:-$(hostname --domain)}
+DBDRIVER=${DBDRIVER:-mysql}
 DBHOST=${DBHOST:-mariadb}
+DBPORT=${DBPORT:-3306}
 DBUSER=${DBUSER:-postfix}
 DBNAME=${DBNAME:-postfix}
 DBPASS=$([ -f "$DBPASS" ] && cat "$DBPASS" || echo "${DBPASS:-}")
@@ -15,7 +17,7 @@ PASSVAL_MIN_CHAR=${PASSVAL_MIN_CHAR:-3}
 PASSVAL_MIN_DIGIT=${PASSVAL_MIN_DIGIT:-2}
 
 if [ -z "$DBPASS" ]; then
-  echo "Mariadb database password must be set !"
+  echo "MariaDB/PostgreSQL database password must be set !"
   exit 1
 fi
 
@@ -25,16 +27,22 @@ mkdir -p /postfixadmin/templates_c
 # Set permissions
 chown -R $UID:$GID /postfixadmin
 
+# MySQL/MariaDB should use mysqli driver
+case "$DBDRIVER" in
+  mysql) DBDRIVER=mysqli;
+esac
+
 # Local postfixadmin configuration file
 cat > /postfixadmin/config.local.php <<EOF
 <?php
 \$CONF['configured'] = true;
 
-\$CONF['database_type'] = 'mysqli';
+\$CONF['database_type'] = '${DBDRIVER}';
 \$CONF['database_host'] = '${DBHOST}';
 \$CONF['database_user'] = '${DBUSER}';
 \$CONF['database_password'] = '${DBPASS}';
 \$CONF['database_name'] = '${DBNAME}';
+\$CONF['database_port'] = '${DBPORT}';
 
 \$CONF['encrypt'] = '${ENCRYPTION}';
 \$CONF['dovecotpw'] = "/usr/bin/doveadm pw";
