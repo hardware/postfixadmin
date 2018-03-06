@@ -11,7 +11,7 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
 - Latest Postfixadmin version (3.1)
-- MySQL/Mariadb driver
+- MariaDB/PostgreSQL driver
 - With PHP7
 
 ### Built-time variables
@@ -30,10 +30,12 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 | -------- | ----------- | ---- | ------------- |
 | **UID** | postfixadmin user id | *optional* | 991
 | **GID** | postfixadmin group id | *optional* | 991
-| **DBHOST** | MariaDB instance ip/hostname | *optional* | mariadb
-| **DBUSER** | MariaDB database username | *optional* | postfix
-| **DBNAME** | MariaDB database name | *optional* | postfix
-| **DBPASS** | MariaDB database password or location of a file containing it | **required** | null
+| **DBDRIVER** | Database type: mysql, pgsql | optional | mysql
+| **DBHOST** | Database instance ip/hostname | *optional* | mariadb
+| **DBPORT** | Database instance port **DOES NOT WORK ON MYSQL FOR NOW** | optional | 3306
+| **DBUSER** | Database database username | *optional* | postfix
+| **DBNAME** | Database database name | *optional* | postfix
+| **DBPASS** | Database database password or location of a file containing it | **required** | null
 | **SMTPHOST** | SMTP server ip/hostname | *optional* | mailserver
 | **DOMAIN** | Mail domain | *optional* | `domainname` value
 | **ENCRYPTION** | Passwords encryption method | *optional* | `dovecot:SHA512-CRYPT`
@@ -56,7 +58,7 @@ postfixadmin:
     - DBPASS=xxxxxxx
   depends_on:
     - mailserver
-    - mariadb
+    - mariadb # postgres (adjust accordingly)
 ```
 
 ### How to setup
