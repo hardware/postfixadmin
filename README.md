@@ -10,15 +10,16 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 
 - Lightweight & secure image (no root process)
 - Based on Alpine Linux
-- Latest Postfixadmin version (3.1)
+- Latest Postfixadmin version (3.2)
 - MariaDB/PostgreSQL driver
 - With PHP7
 
 ### Built-time variables
 
-- **VERSION** : version of postfixadmin (default: **3.1**)
+- **VERSION** : version of postfixadmin
 - **GPG_SHORTID** : short gpg key ID
 - **GPG_FINGERPRINT** : fingerprint of signing key
+- **SHA256_HASH** : SHA256 hash of Postfixadmin archive
 
 ### Ports
 
@@ -30,9 +31,9 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 | -------- | ----------- | ---- | ------------- |
 | **UID** | postfixadmin user id | *optional* | 991
 | **GID** | postfixadmin group id | *optional* | 991
-| **DBDRIVER** | Database type: mysql, pgsql | optional | mysql
+| **DBDRIVER** | Database type: mysql, pgsql | *optional* | mysql
 | **DBHOST** | Database instance ip/hostname | *optional* | mariadb
-| **DBPORT** | Database instance port **DOES NOT WORK ON MYSQL FOR NOW** | optional | 3306
+| **DBPORT** | Database instance port | *optional* | 3306
 | **DBUSER** | Database database username | *optional* | postfix
 | **DBNAME** | Database database name | *optional* | postfix
 | **DBPASS** | Database database password or location of a file containing it | **required** | null
