@@ -9,10 +9,10 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.7/community" >> /etc/a
     ca-certificates \
     git \
  && apk add \
+    nginx \
+    s6 \
     su-exec \
     dovecot \
-    tini@community \
-    php7@community \
     php7-phar \
     php7-fpm@community \
     php7-imap@community \
@@ -24,7 +24,7 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.7/community" >> /etc/a
  && apk del build-dependencies \
  && rm -rf /var/cache/apk/*
 
-COPY bin /usr/local/bin
-RUN chmod +x /usr/local/bin/*
+COPY rootfs /
+RUN chmod +x /usr/local/bin/run.sh /services/*/run /services/.s6-svscan/*
 EXPOSE 8888
-CMD ["tini", "--", "run.sh"]
+CMD ["run.sh"]

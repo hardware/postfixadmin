@@ -24,9 +24,6 @@ fi
 # Create smarty cache folder
 mkdir -p /postfixadmin/templates_c
 
-# Set permissions
-chown -R $UID:$GID /postfixadmin
-
 # MySQL/MariaDB should use mysqli driver
 case "$DBDRIVER" in
   mysql) DBDRIVER=mysqli;
@@ -86,5 +83,11 @@ cat > /postfixadmin/config.local.php <<EOF
 ?>
 EOF
 
+# Fix permissions
+chown -R $UID:$GID /postfixadmin /services /var/log /var/lib/nginx
+
+# Permit nginx to log error to container stdout
+chmod o+w /dev/stdout
+
 # RUN !
-exec su-exec $UID:$GID php7 -S 0.0.0.0:8888 -t /postfixadmin/public
+exec su-exec $UID:$GID /bin/s6-svscan /services
