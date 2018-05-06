@@ -35,6 +35,10 @@ esac
 # Local postfixadmin configuration file
 cat > /postfixadmin/config.local.php <<EOF
 <?php
+
+\$CONF['theme'] = 'bootstrap';
+\$CONF['theme_css'] = 'css/bootstrap.css';
+
 \$CONF['configured'] = true;
 
 \$CONF['database_type'] = '${DBDRIVER}';
