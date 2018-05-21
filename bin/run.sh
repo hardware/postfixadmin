@@ -15,6 +15,10 @@ ENCRYPTION=${ENCRYPTION:-"dovecot:SHA512-CRYPT"}
 PASSVAL_MIN_LEN=${PASSVAL_MIN_LEN:-5}
 PASSVAL_MIN_CHAR=${PASSVAL_MIN_CHAR:-3}
 PASSVAL_MIN_DIGIT=${PASSVAL_MIN_DIGIT:-2}
+# Page size
+PAGE_SIZE=${PAGE_SIZE:-10}
+# Quota
+QUOTA_MULTIPLIER=${QUOTA_MULTIPLIER:-1024000}
 
 if [ -z "$DBPASS" ]; then
   echo "MariaDB/PostgreSQL database password must be set !"
@@ -65,7 +69,7 @@ cat > /postfixadmin/config.local.php <<EOF
 
 \$CONF['quota'] = 'YES';
 \$CONF['domain_quota'] = 'YES';
-\$CONF['quota_multiplier'] = '1024000';
+\$CONF['quota_multiplier'] = '${QUOTA_MULTIPLIER}';
 \$CONF['used_quotas'] = 'YES';
 \$CONF['new_quota_table'] = 'YES';
 
@@ -79,6 +83,8 @@ cat > /postfixadmin/config.local.php <<EOF
     '/([a-zA-Z].*){${PASSVAL_MIN_CHAR}}/'    => 'password_no_characters ${PASSVAL_MIN_CHAR}',
     '/([0-9].*){${PASSVAL_MIN_DIGIT}}/'      => 'password_no_digits ${PASSVAL_MIN_DIGIT}',
 );
+
+\$CONF['page_size'] = '${PAGE_SIZE}';
 ?>
 EOF
 

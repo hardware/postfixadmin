@@ -43,6 +43,8 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 | **PASSVAL_MIN_LEN** | Passwords validation: minimum password length | *optional* | 5
 | **PASSVAL_MIN_CHAR** | Passwords validation: must contain at least characters | *optional* | 3
 | **PASSVAL_MIN_DIGIT** | Passwords validation: must contain at least digits | *optional* | 2
+| **PAGE_SIZE** | Number of entries (mailboxes, alias, etc) that you would like to see in one page. | *optional* | 10
+| **QUOTA_MULTIPLIER** | Number of bytes required to represent a single quota unit. You can either use '1000000', '1024000' or '1048576' | *optional* | 1024000
 
 ### Docker-compose.yml
 
