@@ -2,7 +2,7 @@
 
 GID=${GID:-991}
 UID=${UID:-991}
-DOMAIN=${DOMAIN:-$(hostname --domain)}
+DOMAIN=${DOMAIN:-$(hostname -d)}
 DBDRIVER=${DBDRIVER:-mysql}
 DBHOST=${DBHOST:-mariadb}
 DBPORT=${DBPORT:-3306}
