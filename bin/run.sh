@@ -11,6 +11,7 @@ DBNAME=${DBNAME:-postfix}
 DBPASS=$([ -f "$DBPASS" ] && cat "$DBPASS" || echo "${DBPASS:-}")
 SMTPHOST=${SMTPHOST:-mailserver}
 ENCRYPTION=${ENCRYPTION:-"dovecot:SHA512-CRYPT"}
+FETCHMAIL_EXTRA_OPTIONS=${FETCHMAIL_EXTRA_OPTIONS:-"NO"}
 # Password validation
 PASSVAL_MIN_LEN=${PASSVAL_MIN_LEN:-5}
 PASSVAL_MIN_CHAR=${PASSVAL_MIN_CHAR:-3}
@@ -55,6 +56,7 @@ cat > /postfixadmin/config.local.php <<EOF
 \$CONF['domain_path'] = 'YES';
 \$CONF['domain_in_mailbox'] = 'NO';
 \$CONF['fetchmail'] = 'YES';
+\$CONF['fetchmail_extra_options'] = '${FETCHMAIL_EXTRA_OPTIONS}';
 \$CONF['sendmail'] = 'YES';
 
 \$CONF['admin_email'] = 'postfixadmin@${DOMAIN}';

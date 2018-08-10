@@ -45,6 +45,15 @@ PostfixAdmin is a web based interface used to manage mailboxes, virtual domains 
 | **PASSVAL_MIN_DIGIT** | Passwords validation: must contain at least digits | *optional* | 2
 | **PAGE_SIZE** | Number of entries (mailboxes, alias, etc) that you would like to see in one page. | *optional* | 10
 | **QUOTA_MULTIPLIER** | Number of bytes required to represent a single quota unit. You can either use '1000000', '1024000' or '1048576' | *optional* | 1024000
+| **FETCHMAIL_EXTRA_OPTIONS** | Allows to pass additional options to fetchmail | *optional* | NO
+
+* If you use this docker image and [hardware/mailserver](https://github.com/hardware/mailserver) with fetchmail support enabled, a dedicated port (10025) is available with less restrictions for delivery. Use `FETCHMAIL_EXTRA_OPTIONS` environment variable for that purpose. Example :
+
+```yml
+postfixadmin:
+  environment:
+    FETCHMAIL_EXTRA_OPTIONS="smtp localhost/10025"
+```
 
 ### Docker-compose.yml
 
