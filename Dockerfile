@@ -33,9 +33,9 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.10/community" >> /etc/
  && wget -q https://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-${VERSION}/${PFA_TARBALL} \
  && wget -q https://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-${VERSION}/${PFA_TARBALL}.asc \
  && ( \
-    gpg --keyserver pgp.mit.edu --recv-keys ${GPG_SHORTID} || \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys ${GPG_SHORTID} || \
     gpg --keyserver keyserver.pgp.com --recv-keys ${GPG_SHORTID} || \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys ${GPG_SHORTID} \
+    gpg --keyserver pgp.mit.edu --recv-keys ${GPG_SHORTID} \
     ) \
  && CHECKSUM=$(sha256sum ${PFA_TARBALL} | awk '{print $1}') \
  && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
